@@ -14,21 +14,22 @@ class Product(private val productService: ProductService) {
 
     @GetMapping
     fun getAllProducts(): List<ProductResponseDTO> =
-        productService.getAllProducts().map { ProductMapper.toProductDto(it) }
+        productService.getAllProducts()
 
     @GetMapping("/{id}")
     fun getProductById(@PathVariable id: Long): ResponseEntity<ProductResponseDTO> {
         val product = productService.getProductById(id)
         return if (product != null)
-            ResponseEntity.ok(ProductMapper.toProductDto(product))
+            ResponseEntity.ok(product)
         else
             ResponseEntity.notFound().build()
     }
 
+
     @PostMapping
     fun createProduct(@RequestBody request: ProductRequestDTO): ResponseEntity<ProductResponseDTO> {
-        val saved = productService.createProduct(ProductMapper.toProductEntity(request))
-        return ResponseEntity.status(HttpStatus.CREATED).body(ProductMapper.toProductDto(saved))
+        val saved = productService.createProduct(request)
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved)
     }
 
     @PutMapping("/{id}")
@@ -36,9 +37,9 @@ class Product(private val productService: ProductService) {
         @PathVariable id: Long,
         @RequestBody request: ProductRequestDTO
     ): ResponseEntity<ProductResponseDTO> {
-        val updated = productService.updateProduct(id, ProductMapper.toProductEntity(request))
+        val updated = productService.updateProduct(id, request)
         return if (updated != null)
-            ResponseEntity.ok(ProductMapper.toProductDto(updated))
+            ResponseEntity.ok(updated)
         else
             ResponseEntity.notFound().build()
     }
@@ -50,4 +51,10 @@ class Product(private val productService: ProductService) {
         else
             ResponseEntity.notFound().build()
     }
+
+    @GetMapping("/search")
+    fun searchProducts(@RequestParam name: String): List<ProductResponseDTO> {
+        return productService.searchProducts(name)
+    }
+
 }
