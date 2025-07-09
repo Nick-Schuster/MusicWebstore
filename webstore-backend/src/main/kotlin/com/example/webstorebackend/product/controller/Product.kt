@@ -39,6 +39,8 @@ class Product(private val productService: ProductService) {
     }
 
     @PostMapping
+
+
     fun createProduct(@RequestBody request: ProductRequestDTO): ResponseEntity<ProductResponseDTO> {
         val saved = productService.createProduct(request)
         return ResponseEntity.status(HttpStatus.CREATED).body(saved)
