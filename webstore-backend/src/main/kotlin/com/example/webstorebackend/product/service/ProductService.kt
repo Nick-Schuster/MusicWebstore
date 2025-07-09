@@ -5,6 +5,8 @@ import com.example.webstorebackend.product.dto.ProductResponseDTO
 import com.example.webstorebackend.product.mapper.ProductMapper
 import com.example.webstorebackend.product.repository.ProductRepository
 import org.springframework.stereotype.Service
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 
 @Service
 class ProductService(
@@ -48,8 +50,25 @@ class ProductService(
         }
     }
 
-    fun searchProducts(name: String): List<ProductResponseDTO> {
-        return productRepository.searchByNameIgnoringCase(name)
+    fun searchProductsUnpaged(name: String): List<ProductResponseDTO> {
+        return productRepository.searchByNameIgnoreCaseUnpaged(name)
             .map { ProductMapper.toProductDto(it) }
     }
+
+    fun searchProductsPaged(name: String, pageable: Pageable): Page<ProductResponseDTO> {
+        return productRepository.searchByNameIgnoreCasePaged(name, pageable)
+            .map { ProductMapper.toProductDto(it) }
+    }
+
+
+    fun getAllProducts(pageable: Pageable): Page<ProductResponseDTO> {
+        return productRepository.findAll(pageable)
+            .map { ProductMapper.toProductDto(it) }
+    }
+
+    fun getAllProductsUnpaged(): List<ProductResponseDTO> {
+        return productRepository.findAll()
+            .map { ProductMapper.toProductDto(it) }
+    }
+
 }
