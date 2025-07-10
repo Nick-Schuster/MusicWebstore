@@ -59,6 +59,13 @@ class ProductController(
         return ResponseEntity.noContent().build()
     }
 
+    @DeleteMapping("/all")
+    fun deleteAllProducts(): ResponseEntity<Void> {
+        productService.deleteAllProducts()
+        return ResponseEntity.noContent().build()
+    }
+
+
     @GetMapping("/search")
     fun searchProducts(@RequestParam name: String): ResponseEntity<List<ProductResponseDTO>> {
         val results = productService.searchProductsUnpaged(name)

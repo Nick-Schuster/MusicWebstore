@@ -53,6 +53,10 @@ class ProductService(
         return true
     }
 
+    fun deleteAllProducts() {
+        productRepository.deleteAll()
+    }
+
 
     fun searchProductsUnpaged(name: String): List<ProductResponseDTO> {
         return productRepository.searchByNameIgnoreCaseUnpaged(name)
@@ -64,12 +68,10 @@ class ProductService(
             .map { ProductMapper.toProductDto(it) }
     }
 
-
     fun getAllProducts(pageable: Pageable): Page<ProductResponseDTO> {
         return productRepository.findAll(pageable)
             .map { ProductMapper.toProductDto(it) }
     }
-
 
     fun getAllProductsUnpaged(): List<ProductResponseDTO> {
         return productRepository.findAll()
