@@ -22,6 +22,13 @@ data class Product(
     val inStock: Boolean = true,
 
     @OneToMany(mappedBy = "product", cascade = [CascadeType.ALL], orphanRemoval = true)
-    val images: List<ProductImage> = mutableListOf()
+    val images: List<ProductImage> = mutableListOf(),
+
+    @Column(name = "average_rating", nullable = false)
+    var averageRating: Double = 0.0,
+
+    @OneToMany(mappedBy = "product", cascade = [CascadeType.ALL], orphanRemoval = true)
+    val reviews: List<ProductReview> = mutableListOf()
+
 
 )

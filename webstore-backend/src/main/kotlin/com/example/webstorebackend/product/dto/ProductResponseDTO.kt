@@ -11,5 +11,6 @@ data class ProductResponseDTO(
     val description: String?,
     val price: BigDecimal,
     val inStock: Boolean,
+    val averageRating: Double,
     val images: List<ProductImageDTO> = emptyList()
 )
