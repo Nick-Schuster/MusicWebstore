@@ -4,7 +4,7 @@ ALTER TABLE product
 
 -- Create product_review table
 CREATE TABLE product_review (
-                                id SERIAL PRIMARY KEY,
+                                id BIGSERIAL PRIMARY KEY,
                                 rating INTEGER NOT NULL CHECK (rating BETWEEN 1 AND 5),
                                 comment TEXT,
                                 product_id BIGINT NOT NULL,

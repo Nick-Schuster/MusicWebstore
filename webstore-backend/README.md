@@ -11,7 +11,25 @@ Anleitung für Backend für einen Musik-Webstore. Es stellt eine REST-API bereit
 
 - Java 17+
 - Internetverbindung (für Gradle-Wrapper)
-- Kein manuelles Gradle nötig
+- Kein manuelles Gradle nötig 
+- PostgreSQL installieren Version 16.9
+
+### Datenbank aufsetzen
+
+1. bei PostrgreSQL:
+
+Benutzername: postgres
+
+Passwort: merken!
+
+2. Terminal öffnen:
+
+psql -U postgres
+
+CREATE DATABASE webstoredb;
+
+\q
+
 
 ### Projekt starten
 
