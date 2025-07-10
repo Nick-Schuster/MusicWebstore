@@ -21,7 +21,7 @@ git clone https://github.com/Nick-Schuster/MusicWebstore.git
 cd MusicWebstore/webstore-backend
 
 # Backend bauen
-./gradlew bootRun
+./gradlew build
 
 # Backend starten
 ./gradlew bootRun 
