@@ -7,6 +7,7 @@ import com.example.webstorebackend.product.repository.ProductRepository
 import org.springframework.stereotype.Service
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import com.example.webstorebackend.common.exception.NotFoundException
 
 @Service
 class ProductService(
@@ -16,8 +17,10 @@ class ProductService(
     fun getAllProducts(): List<ProductResponseDTO> =
         productRepository.findAll().map { ProductMapper.toProductDto(it) }
 
-    fun getProductById(id: Long): ProductResponseDTO? {
-        val product = productRepository.findById(id).orElse(null) ?: return null
+    fun getProductById(id: Long): ProductResponseDTO {
+        val product = productRepository.findById(id)
+            .orElseThrow { NotFoundException("Product with id $id not found") }
+
         return ProductMapper.toProductDto(product)
     }
 
@@ -28,7 +31,8 @@ class ProductService(
     }
 
     fun updateProduct(id: Long, updated: ProductRequestDTO): ProductResponseDTO? {
-        val existing = productRepository.findById(id).orElse(null) ?: return null
+        val existing = productRepository.findById(id)
+            .orElseThrow { NotFoundException("Product with id $id not found") }
 
         val updatedEntity = existing.copy(
             name = updated.name,
@@ -42,13 +46,13 @@ class ProductService(
     }
 
     fun deleteProduct(id: Long): Boolean {
-        return if (productRepository.existsById(id)) {
-            productRepository.deleteById(id)
-            true
-        } else {
-            false
+        if (!productRepository.existsById(id)) {
+            throw NotFoundException("Cannot delete. Product with id $id not found")
         }
+        productRepository.deleteById(id)
+        return true
     }
+
 
     fun searchProductsUnpaged(name: String): List<ProductResponseDTO> {
         return productRepository.searchByNameIgnoreCaseUnpaged(name)
@@ -66,9 +70,9 @@ class ProductService(
             .map { ProductMapper.toProductDto(it) }
     }
 
+
     fun getAllProductsUnpaged(): List<ProductResponseDTO> {
         return productRepository.findAll()
             .map { ProductMapper.toProductDto(it) }
     }
-
 }

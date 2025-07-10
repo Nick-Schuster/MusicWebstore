@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
+import jakarta.validation.Valid
 
 @RestController
 @RequestMapping("/api/products")
-class Product(private val productService: ProductService) {
+class ProductController(
+    private val productService: ProductService
+) {
 
     @GetMapping
     fun getAllProducts(
@@ -24,24 +27,19 @@ class Product(private val productService: ProductService) {
     }
 
     @GetMapping("/all")
-    fun getAllProductsUnpaged(): List<ProductResponseDTO> {
-        return productService.getAllProductsUnpaged()
+    fun getAllProductsUnpaged(): ResponseEntity<List<ProductResponseDTO>> {
+        val result = productService.getAllProductsUnpaged()
+        return ResponseEntity.ok(result)
     }
-
 
     @GetMapping("/{id}")
     fun getProductById(@PathVariable id: Long): ResponseEntity<ProductResponseDTO> {
         val product = productService.getProductById(id)
-        return if (product != null)
-            ResponseEntity.ok(product)
-        else
-            ResponseEntity.notFound().build()
+        return ResponseEntity.ok(product)
     }
 
     @PostMapping
-
-
-    fun createProduct(@RequestBody request: ProductRequestDTO): ResponseEntity<ProductResponseDTO> {
+    fun createProduct(@Valid @RequestBody request: ProductRequestDTO): ResponseEntity<ProductResponseDTO> {
         val saved = productService.createProduct(request)
         return ResponseEntity.status(HttpStatus.CREATED).body(saved)
     }
@@ -49,26 +47,22 @@ class Product(private val productService: ProductService) {
     @PutMapping("/{id}")
     fun updateProduct(
         @PathVariable id: Long,
-        @RequestBody request: ProductRequestDTO
+        @Valid @RequestBody request: ProductRequestDTO
     ): ResponseEntity<ProductResponseDTO> {
         val updated = productService.updateProduct(id, request)
-        return if (updated != null)
-            ResponseEntity.ok(updated)
-        else
-            ResponseEntity.notFound().build()
+        return ResponseEntity.ok(updated)
     }
 
     @DeleteMapping("/{id}")
     fun deleteProduct(@PathVariable id: Long): ResponseEntity<Void> {
-        return if (productService.deleteProduct(id))
-            ResponseEntity.noContent().build()
-        else
-            ResponseEntity.notFound().build()
+        productService.deleteProduct(id)
+        return ResponseEntity.noContent().build()
     }
 
     @GetMapping("/search")
-    fun searchProducts(@RequestParam name: String): List<ProductResponseDTO> {
-        return productService.searchProductsUnpaged(name)
+    fun searchProducts(@RequestParam name: String): ResponseEntity<List<ProductResponseDTO>> {
+        val results = productService.searchProductsUnpaged(name)
+        return ResponseEntity.ok(results)
     }
-
 }
+

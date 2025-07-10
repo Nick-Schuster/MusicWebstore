@@ -18,6 +18,8 @@ object ProductMapper {
         name = product.name,
         description = product.description,
         price = product.price,
-        inStock = product.inStock
+        inStock = product.inStock,
+        images = product.images.map { ProductImageDTO(it.id, it.imageUrl) }
     )
+
 }

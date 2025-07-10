@@ -34,6 +34,19 @@ cd MusicWebstore/webstore-backend
 
 ---
 
+GET	/api/products	Paginierte Produktliste  
+GET	/api/products/all	Alle Produkte ohne Pagination  
+GET	/api/products/{id}	Einzelnes Produkt nach ID  
+GET	/api/products/search?name=xyz	Produktsuche per Name (nicht pag.)  
+POST	/api/products	Neues Produkt anlegen  
+PUT	/api/products/{id}	Produkt aktualisieren  
+DELETE	/api/products/{id}	Produkt löschen  
+
+
+
+
+---
+
 ### GET /api/products
 Paginierte Produktliste (mit page, size, sort)
 
