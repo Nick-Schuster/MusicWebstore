@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import com.example.webstorebackend.common.exception.NotFoundException
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class ProductService(
@@ -17,10 +18,11 @@ class ProductService(
     fun getAllProducts(): List<ProductResponseDTO> =
         productRepository.findAll().map { ProductMapper.toProductDto(it) }
 
+    @Transactional
     fun getProductById(id: Long): ProductResponseDTO {
         val product = productRepository.findById(id)
             .orElseThrow { NotFoundException("Product with id $id not found") }
-
+        product.images.size
         return ProductMapper.toProductDto(product)
     }
 

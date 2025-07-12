@@ -20,7 +20,7 @@ object ProductMapper {
         price = product.price,
         inStock = product.inStock,
         averageRating = product.averageRating,
-        images = product.images.map { ProductImageDTO(it.id, it.imageUrl) }
+        images = product.images.map { ProductImageResponseDTO(it.id, it.imageUrl) }
     )
 
 }
