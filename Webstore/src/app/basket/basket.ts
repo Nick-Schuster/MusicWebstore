@@ -7,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrl: './basket.css'
 })
 export class Basket {
-
+  articles:any;
+  constructor() {
+  }
+  ngOnInit() {
+    this.articles  = localStorage
+  }
 }

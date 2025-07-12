@@ -22,7 +22,6 @@ export class Home {
 
   async ngOnInit(){
     this.articles = await this.articleServices.getAllArticles();
-    console.log(this.articles);
   }
 
   toProductView(id: number){
