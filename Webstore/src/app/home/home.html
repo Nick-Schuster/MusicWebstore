@@ -1,4 +1,13 @@
 <p>home works!</p>
-<ul>
 
-</ul>
+@for(article  of articles;track  $index; let idx = $index){
+  <ul>
+    <li>{{article.name}}</li>
+    <li>{{article.description}}</li>
+    <li>{{article.price}}</li>
+    @if(article.inStock){
+      <li>Available</li>
+    }
+  </ul>
+}
+

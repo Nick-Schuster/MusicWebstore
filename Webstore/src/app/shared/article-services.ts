@@ -11,13 +11,16 @@ export class ArticleServices {
   async getAllArticles(): Promise<any> {
     const articles: any = await fetch('http://localhost:8080/api/products/all',{
       method: 'GET',
+      headers: { "Content-Type": "application/json" },
     });
+
     return articles.json();
   }
 
   async getAllArticlesPaginized(page:string,size:string,sort:string): Promise<any> {
     const articles: any = await fetch(`http://localhost:8080/api/products?page=${page}&size=${size}&sort=${sort}`,{
       method: 'GET',
+      headers: { "Content-Type": "application/json" },
     });
     return articles.json();
   }
@@ -25,6 +28,7 @@ export class ArticleServices {
   async getArticleByName(name:string): Promise<any> {
     const articles: any = await fetch(`http://localhost:8080/api/products/search?name=${name}`,{
       method: 'GET',
+      headers: { "Content-Type": "application/json" },
     });
     return articles.json();
   }
@@ -32,6 +36,7 @@ export class ArticleServices {
   async getArticleById(id:string): Promise<any> {
     const articles: any = await fetch(`http://localhost:8080/api/products/${id}`,{
       method: 'GET',
+      headers: { "Content-Type": "application/json" },
     });
     return articles.json();
   }
@@ -39,6 +44,7 @@ export class ArticleServices {
   async postArticle(post: object): Promise<any> {
     const articles: any = await fetch('http://localhost:8080/api/products',{
       method: 'POST',
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(post),
     });
     return articles.json();
@@ -47,6 +53,7 @@ export class ArticleServices {
   async putArticleById(id:string): Promise<any> {
     const articles: any = await fetch(`http://localhost:8080/api/products/${id}`,{
       method: 'GET',
+      headers: { "Content-Type": "application/json" },
     });
     return articles.json();
   }
