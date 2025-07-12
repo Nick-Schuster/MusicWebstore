@@ -1,26 +1,26 @@
 package com.example.webstorebackend.product.service
 
-import com.example.webstorebackend.product.dto.ProductImageDTO
+import com.example.webstorebackend.product.dto.ProductImageResponseDTO
 import com.example.webstorebackend.product.mapper.ProductImageMapper
 import com.example.webstorebackend.product.repository.ProductImageRepository
 import com.example.webstorebackend.product.repository.ProductRepository
-import jakarta.persistence.EntityNotFoundException
 import org.springframework.stereotype.Service
 import com.example.webstorebackend.common.exception.NotFoundException
+import com.example.webstorebackend.product.dto.ProductImageRequestDTO
 
 @Service
 class ProductImageService(
     private val productRepository: ProductRepository,
     private val imageRepository: ProductImageRepository
 ) {
-    fun getAllImages(productId: Long): List<ProductImageDTO> {
+    fun getAllImages(productId: Long): List<ProductImageResponseDTO> {
         val product = productRepository.findById(productId)
             .orElseThrow { NotFoundException("Product with id $productId not found") }
 
         return product.images.map { ProductImageMapper.toImageDTO(it) }
     }
 
-    fun addImage(productId: Long, dto: ProductImageDTO): ProductImageDTO {
+    fun addImage(productId: Long, dto: ProductImageRequestDTO): ProductImageResponseDTO {
         val product = productRepository.findById(productId)
             .orElseThrow { NotFoundException("Product with id $productId not found") }
 

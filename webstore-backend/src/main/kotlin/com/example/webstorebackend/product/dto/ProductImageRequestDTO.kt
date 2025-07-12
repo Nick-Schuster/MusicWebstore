@@ -2,8 +2,8 @@ package com.example.webstorebackend.product.dto
 
 import jakarta.validation.constraints.NotBlank
 
-data class ProductImageDTO(
+data class ProductImageRequestDTO (
+
     @field:NotBlank
-    val id: Long,
     val imageUrl: String
 )

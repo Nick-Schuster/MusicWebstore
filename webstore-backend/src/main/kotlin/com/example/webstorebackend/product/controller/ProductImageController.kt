@@ -1,8 +1,9 @@
 package com.example.webstorebackend.product.controller
 
+import com.example.webstorebackend.product.dto.ProductImageRequestDTO
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import com.example.webstorebackend.product.dto.ProductImageDTO
+import com.example.webstorebackend.product.dto.ProductImageResponseDTO
 import com.example.webstorebackend.product.service.ProductImageService
 
 @RestController
@@ -12,14 +13,14 @@ class ProductImageController(
 ) {
 
     @GetMapping
-    fun getAllImages(@PathVariable productId: Long): List<ProductImageDTO> =
+    fun getAllImages(@PathVariable productId: Long): List<ProductImageResponseDTO> =
         productImageService.getAllImages(productId)
 
     @PostMapping
     fun addImage(
         @PathVariable productId: Long,
-        @RequestBody dto: ProductImageDTO
-    ): ResponseEntity<ProductImageDTO> {
+        @RequestBody dto: ProductImageRequestDTO
+    ): ResponseEntity<ProductImageResponseDTO> {
         val saved = productImageService.addImage(productId, dto)
         return ResponseEntity.ok(saved)
     }

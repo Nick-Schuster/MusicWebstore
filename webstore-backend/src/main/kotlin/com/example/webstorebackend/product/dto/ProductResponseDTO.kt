@@ -1,8 +1,5 @@
 package com.example.webstorebackend.product.dto
 
-import jakarta.validation.constraints.DecimalMin
-import jakarta.validation.constraints.NotBlank
-import jakarta.validation.constraints.NotNull
 import java.math.BigDecimal
 
 data class ProductResponseDTO(
@@ -12,5 +9,5 @@ data class ProductResponseDTO(
     val price: BigDecimal,
     val inStock: Boolean,
     val averageRating: Double,
-    val images: List<ProductImageDTO> = emptyList()
+    val images: List<ProductImageResponseDTO> = emptyList()
 )
