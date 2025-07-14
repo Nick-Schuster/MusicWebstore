@@ -1,5 +1,15 @@
-<ul>
-  @for(article  of articles;track  $index; let idx = $index){
 
-  }
-</ul>
+@for(article  of articles;track  $index; let idx = $index){
+  <ul (click)="toProductView(article.id)">
+    <li>{{article.name}}</li>
+    @if(article.images !=  null){
+      <img src="{{article.images.at(0).imageUrl}}" alt="">
+    }
+    <li>{{article.description}}</li>
+    <li>{{article.price}}</li>
+    @if(article.inStock){
+      <li>Available</li>
+    }
+  </ul>
+}
+<button  (click)="clearBasket()">Buy everything</button>

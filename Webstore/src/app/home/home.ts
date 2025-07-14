@@ -6,7 +6,7 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-home',
   imports: [
-    NgOptimizedImage
+
   ],
   templateUrl: './home.html',
   styleUrl: './home.css'
@@ -21,10 +21,30 @@ export class Home {
   }
 
   async ngOnInit(){
-    this.articles = await this.articleServices.getAllArticles();
+    this.articles = await this.articleServices.getAllArticlesSize("10");
+    this.articles = this.articles.content;
   }
 
   toProductView(id: number){
     this.router.navigate(['/productview',id]);
+  }
+
+  async changeSort(){
+    const sortInput: HTMLSelectElement | null = document.getElementById('sortInput') as HTMLSelectElement;
+    if(sortInput){
+      switch(sortInput.value){
+        case 'Sort by price':
+          this.articles = await this.articleServices.getAllArticlesSizeSort("10","price,asc");
+          this.articles = this.articles.content;
+          break;
+          case 'Sort by rating':
+            break;
+            case 'Sort by name':
+              break;
+                default:
+                  this.articles = await this.articleServices.getAllArticlesSize("10");
+                  break;
+      }
+    }
   }
 }

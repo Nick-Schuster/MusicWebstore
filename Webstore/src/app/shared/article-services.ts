@@ -18,7 +18,23 @@ export class ArticleServices {
   }
 
   async getAllArticlesPaginized(page:string,size:string,sort:string): Promise<any> {
-    const articles: any = await fetch(`http://localhost:8080/api/products?page=${page}&size=${size}&sort=${sort}`,{
+    const articles: any = await fetch(`http://localhost:8080/api/products?page=${page}&size=${size}c`,{
+      method: 'GET',
+      headers: { "Content-Type": "application/json" },
+    });
+    return articles.json();
+  }
+
+  async getAllArticlesSize(size:string): Promise<any> {
+    const articles: any = await fetch(`http://localhost:8080/api/products?size=${size}`,{
+      method: 'GET',
+      headers: { "Content-Type": "application/json" },
+    });
+    return articles.json();
+  }
+
+  async getAllArticlesSizeSort(size:string, sort:string): Promise<any> {
+    const articles: any = await fetch(`http://localhost:8080/api/products?size=${size}&sort=${sort}`,{
       method: 'GET',
       headers: { "Content-Type": "application/json" },
     });

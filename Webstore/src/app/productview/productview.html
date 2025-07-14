@@ -1,13 +1,14 @@
-
-<ul>
-  <li>{{article.name}}</li>
-  @if(article.images !=  null){
+@if(article){
+  <ul>
+    <li>{{article.name}}</li>
+    @if(article.images !=  null){
       <img src="{{article.images.at(0).imageUrl}}" alt="">
     }
-  <li>{{article.description}}</li>
-  <li>{{article.price}}</li>
-  @if(article.inStock){
+    <li>{{article.description}}</li>
+    <li>{{article.price}}</li>
+    @if(article.inStock){
       <li>Available</li>
     }
-</ul>
+  </ul>
+}
 <button  (click)="addToBasket()">Add to basket</button>

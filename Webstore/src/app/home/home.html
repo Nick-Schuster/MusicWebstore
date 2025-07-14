@@ -1,16 +1,22 @@
-<p>home works!</p>
-
-@for(article  of articles;track  $index; let idx = $index){
-  <ul (click)="toProductView(article.id)">
-    <li>{{article.name}}</li>
-    @if(article.images !=  null){
-      <img src="{{article.images.at(0).imageUrl}}" alt="">
-    }
-    <li>{{article.description}}</li>
-    <li>{{article.price}}</li>
-    @if(article.inStock){
-      <li>Available</li>
-    }
-  </ul>
+<select id="sortInput" (change)="changeSort()">
+  <option>Unsorted</option>
+  <option>Sort by price</option>
+  <option>Sort by rating</option>
+  <option>Sort by name</option>
+</select>
+@if(articles){
+  @for(article  of articles;track  $index; let idx = $index){
+    <ul (click)="toProductView(article.id)">
+      <li>{{article.name}}</li>
+      @if(article.images !=  null){
+        <img src="{{article.images.at(0).imageUrl}}" alt="">
+      }
+      <li>{{article.description}}</li>
+      <li>{{article.price}}$</li>
+      @if(article.inStock){
+        <li>Available</li>
+      }
+    </ul>
+  }
 }
 
