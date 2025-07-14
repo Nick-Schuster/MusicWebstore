@@ -77,6 +77,34 @@ cd MusicWebstore/webstore-backend
 | `comment` | `String?` | Optionaler Freitext-Kommentar |
 | `product` | `Product` | Zugehöriges Produkt           |
 
+### User Entity
+
+| Feld       | Typ       | Beschreibung |
+| ---------- | --------- | -------- |
+| `id`       | `Long`    | Primärschlüssel des Benutzers |
+| `username` | `String`  | Eindeutiger Benutzername |
+| `password` | `String`  | Passwort |
+| `name`     | `String`  | Name des Benutzers |
+| `admin`    | `Boolean` | Gibt an, ob der User Admin ist |
+| `cart`     | `Cart?`   | Optional: Zugehöriger Warenkorb |
+
+### Cart Entity
+
+| Feld    | Typ              | Beschreibung                    |
+| ------- | ---------------- | ------------------------------- |
+| `id`    | `Long`           | Primärschlüssel des Warenkorbs  |
+| `user`  | `User`           | Der zugeordnete Benutzer        |
+| `items` | `List<CartItem>` | Liste der Produkte im Warenkorb |
+
+### CartItem Entity
+
+| Feld       | Typ       | Beschreibung                       |
+| ---------- | --------- | ---------------------------------- |
+| `id`       | `Long`    | Primärschlüssel des CartItems      |
+| `cart`     | `Cart`    | Referenz auf zugehörigen Warenkorb |
+| `product`  | `Product` | Referenz auf das Produkt           |
+| `quantity` | `Int`     | Menge dieses Produkts im Warenkorb |
+
 ---
 
 ## Alle API Endpunkte auf einen Blick
