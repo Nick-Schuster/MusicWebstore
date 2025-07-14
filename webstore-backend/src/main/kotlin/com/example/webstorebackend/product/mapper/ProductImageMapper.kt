@@ -4,7 +4,9 @@ import com.example.webstorebackend.product.dto.ProductImageRequestDTO
 import com.example.webstorebackend.product.dto.ProductImageResponseDTO
 import com.example.webstorebackend.product.entity.Product
 import com.example.webstorebackend.product.entity.ProductImage
+import org.springframework.stereotype.Component
 
+@Component
 object ProductImageMapper {
 
     // Image Mappings

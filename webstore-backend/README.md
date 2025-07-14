@@ -1,7 +1,6 @@
 # Music Webstore Backend – Spring Boot + Kotlin
 
-Anleitung für Backend für einen Musik-Webstore. Es stellt eine REST-API bereit zur Verwaltung von Produkten und Produktbildern.  
-
+Anleitung für Backend für einen Musik-Webstore. Es stellt eine REST-API bereit zur Verwaltung von Produkten und Produktbildern.
 
 ---
 
@@ -11,7 +10,7 @@ Anleitung für Backend für einen Musik-Webstore. Es stellt eine REST-API bereit
 
 - Java 17+
 - Internetverbindung (für Gradle-Wrapper)
-- Kein manuelles Gradle nötig 
+- Kein manuelles Gradle nötig
 - PostgreSQL installieren Version 16.9
 
 ### Datenbank aufsetzen
@@ -30,7 +29,6 @@ CREATE DATABASE webstoredb;
 
 \q
 
-
 ### Projekt starten
 
 ```bash
@@ -42,12 +40,15 @@ cd MusicWebstore/webstore-backend
 ./gradlew build
 
 # Backend starten
-./gradlew bootRun 
- ```
+./gradlew bootRun
+```
+
 ---
+
 ## Datenbank-Entities
 
 ### Product Entity
+
 | Feld            | Typ                   | Beschreibung                          |
 | --------------- | --------------------- | ------------------------------------- |
 | `id`            | `Long`                | Primärschlüssel des Produkts          |
@@ -60,6 +61,7 @@ cd MusicWebstore/webstore-backend
 | `reviews`       | `List<ProductReview>` | Bewertungen mit Kommentaren           |
 
 ### Product-Image Entity
+
 | Feld       | Typ       | Beschreibung               |
 | ---------- | --------- | -------------------------- |
 | `id`       | `Long`    | Primärschlüssel des Bildes |
@@ -75,128 +77,133 @@ cd MusicWebstore/webstore-backend
 | `comment` | `String?` | Optionaler Freitext-Kommentar |
 | `product` | `Product` | Zugehöriges Produkt           |
 
-
 ---
+
 ## Alle API Endpunkte auf einen Blick
 
 ### Product API
-GET     /api/products         <----         Paginierte Produktliste  
-GET     /api/products/all     <----         Alle Produkte ohne Pagination  
-GET     /api/products/{id}    <----          Einzelnes Produkt nach ID  
-GET     /api/products/search?name=xyz <----  Produktsuche per Name (nicht pag.)  
-POST    /api/products             <----      Neues Produkt anlegen  
-PUT     /api/products/{id}        <----      Produkt aktualisieren  
-DELETE  /api/products/{id}        <----     Produkt löschen  
+
+GET     /api/products         <----         Paginierte Produktliste\
+GET     /api/products/all     <----         Alle Produkte ohne Pagination\
+GET     /api/products/{id}    <----          Einzelnes Produkt nach ID\
+GET     /api/products/search?name=xyz <----  Produktsuche per Name (nicht pag.)\
+POST    /api/products             <----      Neues Produkt anlegen\
+PUT     /api/products/{id}        <----      Produkt aktualisieren\
+DELETE  /api/products/{id}        <----     Produkt löschen\
 DELETE  /api/products/all         <----      Alle Produkte löschen (nur für Entwicklung)
 
 ---
 
 ### Product-Image API
-GET     /api/products/{id}/images     <----  Alle Bilder zu einem Produkt abrufen  
-POST    /api/products/{id}/images     <----  Bild zu Produkt hinzufügen  
+
+GET     /api/products/{id}/images     <----  Alle Bilder zu einem Produkt abrufen\
+POST    /api/products/{id}/images     <----  Bild zu Produkt hinzufügen\
 DELETE  /api/products/{id}/images/{id}<----  Bild eines Produkts löschen
 
 ---
 
 ### Product-Rating API
-GET     /api/products/{id}/reviews    <----  Alle Bewertungen zu einem Produkt abrufen  
+
+GET     /api/products/{id}/reviews    <----  Alle Bewertungen zu einem Produkt abrufen\
 POST    /api/products/{id}/reviews    <----  Neue Bewertung mit Kommentar hinzufügen
 
 ---
 
-## Produkt-API Endpunkte
+## User API
 
-(bis jetzt wird die Produkt-ID automatisch generiert und zählt von 1 ab hoch)
+### POST /api/users
 
+Neuen Benutzer anlegen
 
----
-
-### GET /api/products
-Paginierte Produktliste (mit page, size, sort)
-
-GET http://localhost:8080/api/products?page=0&size=10&sort=price,asc
-
----
-
-### GET /api/products/all
-Alle Produkte ohne Pagination
-
-GET http://localhost:8080/api/products/all
-
----
-
-### GET /api/products/search?name=xyz
-Produktsuche nach Name (nicht paginiert)
-
-GET http://localhost:8080/api/products/search?name=gitarre
-
----
-
-### GET /api/products/{id}
-Einzelnes Produkt nach ID
-
-GET http://localhost:8080/api/products/1
-
----
-
-### POST /api/products
-Neues Produkt anlegen
-
-POST http://localhost:8080/api/products
+```http
+POST http://localhost:8080/api/users
+```
 
 **Body:**
+
 ```json
 {
-  "name": "Fender Stratocaster",
-  "description": "Klassische E-Gitarre",
-  "price": 1299.00,
-  "inStock": true
+  "username": "julia123",
+  "password": "Passwort1!",
+  "name": "Julia",
+  "admin": false
 }
+```
+
+### GET /api/users
+
+Alle Benutzer abrufen
+
+```http
+GET http://localhost:8080/api/users
+```
+
+### GET /api/users/{id}
+
+Einzelnen Benutzer nach ID abrufen
+
+```http
+GET http://localhost:8080/api/users/1
+```
+
+### GET /api/users/search?username=xyz
+
+Benutzer per Benutzername suchen
+
+```http
+GET http://localhost:8080/api/users/search?username=julia123
+```
+
+### DELETE /api/users/{id}
+
+Benutzer löschen
+
+```http
+DELETE http://localhost:8080/api/users/1
 ```
 
 ---
 
-### PUT /api/products/{id}
-Produkt aktualisieren
+## Cart API
 
-PUT http://localhost:8080/api/products/1
-Content-Type: application/json
+### GET /api/cart/{userId}
 
----
+Warenkorb des Nutzers abrufen
 
-### DELETE /api/products/{id}
-Produkt löschen
+```http
+GET http://localhost:8080/api/cart/1
+```
 
-DELETE http://localhost:8080/api/products/1
+### POST /api/cart/{userId}
 
+Produkt zum Warenkorb hinzufügen
 
----
+```http
+POST http://localhost:8080/api/cart/1
+```
 
-## Produktbilder-API Endpunkte
+**Body:**
 
-### GET /api/products/{productId}/images
-Bilder eines Produkts abrufen
-
-GET http://localhost:8080/api/products/1/images
-
-
----
-
-### POST /api/products/{productId}/images
-Bild zu einem Produkt hinzufügen
-
-POST http://localhost:8080/api/products/1/images
-Content-Type: application/json
-
+```json
 {
-"imageUrl": "https://example.com/gitarre.jpg"
+  "productId": 2,
+  "quantity": 1
 }
+```
 
----
+### DELETE /api/cart/{userId}/{productId}
 
-### DELETE /api/products/{productId}/images/{imageId}
-Bild eines Produkts löschen
+Produkt aus Warenkorb entfernen
 
-DELETE http://localhost:8080/api/products/1/images/5
+```http
+DELETE http://localhost:8080/api/cart/1/2
+```
 
- 
+### POST /api/cart/{userId}/checkout
+
+Warenkorb „bezahlen“ und leeren
+
+```http
+POST http://localhost:8080/api/cart/1/checkout
+```
+

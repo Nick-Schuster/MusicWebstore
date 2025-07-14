@@ -1,11 +1,7 @@
 package com.example.webstorebackend.config
 
-import com.example.webstorebackend.product.dto.ProductImageRequestDTO
-import com.example.webstorebackend.product.dto.ProductRequestDTO
-import com.example.webstorebackend.product.dto.ProductReviewRequestDTO
-import com.example.webstorebackend.product.service.ProductImageService
-import com.example.webstorebackend.product.service.ProductReviewService
-import com.example.webstorebackend.product.service.ProductService
+import com.example.webstorebackend.product.dto.*
+import com.example.webstorebackend.product.service.*
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 import org.springframework.stereotype.Component
@@ -15,7 +11,9 @@ import java.math.BigDecimal
 class TestDataLoader(
     private val productService: ProductService,
     private val productImageService: ProductImageService,
-    private val productReviewService: ProductReviewService
+    private val productReviewService: ProductReviewService,
+    private val userService: UserService,
+    private val cartService: CartService // ⬅️ Neu hinzugefügt
 ) : ApplicationRunner {
 
     override fun run(args: ApplicationArguments) {
@@ -64,10 +62,32 @@ class TestDataLoader(
             )
         )
 
+        val admin = userService.createUser(
+            UserRequestDTO("admin", "Admin123!", "Admin", true)
+        )
+        val julia = userService.createUser(
+            UserRequestDTO("julia123", "Passwort1!", "Julia", false)
+        )
+
+        val createdProducts = mutableListOf<ProductResponseDTO>()
+
         products.forEach { (productDTO, imageUrl, reviewDTO) ->
             val saved = productService.createProduct(productDTO)
+            createdProducts.add(saved)
             productImageService.addImage(saved.id, ProductImageRequestDTO(imageUrl))
             productReviewService.addReview(saved.id, reviewDTO)
+        }
+
+        // Beispiel: Julia bekommt automatisch zwei Produkte in den Warenkorb
+        if (createdProducts.size >= 2) {
+            cartService.addItemToCart(
+                julia.id,
+                CartItemDTO(productId = createdProducts[0].id, quantity = 1)
+            )
+            cartService.addItemToCart(
+                julia.id,
+                CartItemDTO(productId = createdProducts[1].id, quantity = 2)
+            )
         }
 
         println("Testdaten erfolgreich geladen.")

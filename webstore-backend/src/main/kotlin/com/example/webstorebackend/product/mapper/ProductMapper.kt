@@ -2,7 +2,9 @@ package com.example.webstorebackend.product.mapper
 
 import com.example.webstorebackend.product.dto.*
 import com.example.webstorebackend.product.entity.Product
+import org.springframework.stereotype.Component
 
+@Component
 object ProductMapper {
 
     //Product Mappings
