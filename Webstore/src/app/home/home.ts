@@ -38,6 +38,7 @@ export class Home {
           this.articles = this.articles.content;
           break;
           case 'Sort by rating':
+            this.articles = await this.articleServices.getAllArticles();
             break;
             case 'Sort by name':
               break;
@@ -46,5 +47,37 @@ export class Home {
                   break;
       }
     }
+  }
+
+  async showAll():Promise<void> {
+    this.articles = await this.articleServices.getAllArticles();
+  }
+
+  //Sehr fragwürdiger selbst ausgedachter Suchalgorithmus
+  async search(){
+    const searchInputElement: HTMLInputElement | null = document.getElementById('searchInput') as HTMLInputElement;
+    const searchInput:string = searchInputElement.value;
+    if(searchInput.length == 0){
+      this.articles = await this.articleServices.getAllArticlesSize("10");
+      this.articles = this.articles.content;
+      return;
+    }
+    let selectedArticles: any[] = [];
+    this.articles = await this.articleServices.getAllArticles();
+    for(const articel of this.articles){
+      let match: number  = 0;
+      const name:string = articel.name;
+      for(let i=0;i < name.length; i++){
+        if(searchInput.includes(name[i])){
+          match = match + 1;
+        }
+      }
+      match = match / searchInput.length;
+      console.log(match);
+      if(match > 0.7){
+        selectedArticles.push(articel);
+      }
+    }
+    this.articles = selectedArticles;
   }
 }

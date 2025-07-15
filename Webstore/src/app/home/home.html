@@ -4,6 +4,8 @@
   <option>Sort by rating</option>
   <option>Sort by name</option>
 </select>
+<input id="searchInput" type="text">
+<button  (click)="search()">Search</button>
 @if(articles){
   @for(article  of articles;track  $index; let idx = $index){
     <ul (click)="toProductView(article.id)">
@@ -19,4 +21,5 @@
     </ul>
   }
 }
+<button  (click)="showAll()">Show all</button>
 
