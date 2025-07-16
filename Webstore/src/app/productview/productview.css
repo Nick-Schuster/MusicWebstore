@@ -1,0 +1,78 @@
+:root {
+  --color1: #FAE7C9;
+  --color2: #E1C78F;
+  --color3: #B0926A;
+  --color4: #706233;
+}
+
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background-color: var(--color1);
+}
+
+.product-detail {
+  display: flex;
+  gap: 4rem;
+  padding: 10rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  max-width: 1000px;
+  width: 100%;
+}
+
+.pictures {
+  max-height: 500px;
+  width: auto;
+  border-radius: 10px;
+}
+
+.product-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: flex-start;
+}
+
+.product-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--color4);
+}
+
+.product-description {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color4);
+}
+
+.product-price {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: black;
+}
+
+.product-stock {
+  color: green;
+}
+
+button {
+  align-self: flex-end;
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  background-color: var(--color4);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+}
+
+button:hover {
+  background-color: var(--color3);
+}

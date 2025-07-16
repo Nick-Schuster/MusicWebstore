@@ -1,5 +1,5 @@
+<div class="page-wrapper">
 <body>
-
 @for(article  of articles;track  $index; let idx = $index){
   <ul (click)="toProductView(article.id)">
     <li>{{article.name}}</li>
@@ -17,3 +17,4 @@
 <button  (click)="clearBasket()">Buy everything</button>
 
 </body>
+</div>

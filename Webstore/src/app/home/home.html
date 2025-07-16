@@ -1,29 +1,38 @@
 <body>
-<div class="sort">
-<select id="sortInput" (change)="changeSort()">
-  <option>Unsorted</option>
-  <option>Sort by price</option>
-  <option>Sort by rating</option>
-</select>
-<input id="searchInput" type="text">
-<button  (click)="search()">Search</button>
-</div>
-<div class="product-list">
-@if(articles){
-  @for(article  of articles;track  $index; let idx = $index){
-    <ul class="product" (click)="toProductView(article.id)">
-      <li>{{article.name}}</li>
-      @if(article.images !=  null){
-        <img class="pictures" src="{{article.images.at(0).imageUrl}}" alt="">
+  <div class="page-wrapper">
+    <div class="sort">
+      <select id="sortInput" (change)="changeSort()">
+        <option>Unsorted</option>
+        <option>Sort by price</option>
+        <option>Sort by rating</option>
+      </select>
+      <input id="searchInput" type="text" placeholder="Search...">
+      <button  (click)="search()">Search</button>
+    </div>
+  <div class="product-list">
+    @if(articles){
+      @for(article  of articles;track  $index; let idx = $index){
+        <div class="product-card" (click)="toProductView(article.id)">
+        @if(article.images !=  null){
+          <img class="pictures" src="{{article.images.at(0).imageUrl}}" alt="">
+        }
+          <div class="product-info">
+            <ul class="product" (click)="toProductView(article.id)">
+             <li class="product-title">{{article.name}}</li>
+             <li class="product-description">{{article.description}}</li>
+             <li class="product-price">{{article.price}}$</li>
+            @if(article.inStock){
+             <li class="product-stock">Available</li>
       }
-      <li>{{article.description}}</li>
-      <li>{{article.price}}$</li>
-      @if(article.inStock){
-        <li>Available</li>
-      }
-    </ul>
+            </ul>
+          </div>
+        </div>
   }
 }
+  <div class="show-buttons">
 <button #allButton (click)="showAll()">Show all</button>
 <button #lessButton (click)="showLess()">Show less</button>
-
+  </div>
+  </div>
+  </div>
+</body>

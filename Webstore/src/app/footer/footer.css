@@ -12,18 +12,14 @@ html, body {
 }
 
 footer {
-  position: fixed;
-  bottom: 0;
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: flex-start;
   padding: 20px;
   color: white;
-  z-index: 1000;
   backdrop-filter: blur(1px);
   background-color: var(--color4);
-  left: 0;
 }
 
 .footer-section {
