@@ -1,0 +1,38 @@
+:root {
+  --color1:#FAE7C9;
+  --color2:#E1C78F;
+  --color3:#B0926A;
+  --color4:#706233;
+
+  box-sizing: border-box;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+  margin: 0;
+  padding: 0;
+  background-color: var(--color4);
+  border: 2px solid red;
+  left: 0;
+}
+
+.navbar-elements {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+}
+
+.navbar-elements li {
+  display: block;
+  padding: 14px 20px;
+  color: white;
+  text-decoration: none;
+}
+
+.navbar-elements li:hover {
+  background-color: var(--color3);
+}
+
