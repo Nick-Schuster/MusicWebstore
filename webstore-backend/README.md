@@ -235,3 +235,41 @@ Warenkorb „bezahlen“ und leeren
 POST http://localhost:8080/api/cart/1/checkout
 ```
 
+## Auth API (Fake Login via Header)
+
+### GET /api/auth/me
+
+Aktuell eingeloggten Benutzer abrufen (simuliert via `X-User-Id` Header)
+
+```http
+GET http://localhost:8080/api/auth/me
+X-User-Id: 1
+```
+
+**Response:**
+
+```json
+{
+  "id": 1,
+  "username": "admin",
+  "name": "Admin",
+  "admin": true
+}
+```
+
+fetch("http://localhost:8080/api/auth/me", {  
+method: "GET",  
+headers: {  
+"Content-Type": "application/json",  
+"X-User-Id": "1" // simuliert eingeloggten Benutzer mit ID 1  
+}  
+})  
+.then(res => {  
+if (!res.ok) throw new Error("Nicht eingeloggt oder Benutzer nicht gefunden");  
+return res.json();  
+})  
+.then(user => {  
+console.log("Eingeloggter Benutzer:", user);  
+// Beispiel: user.name, user.admin usw.  
+})  
+.catch(err => console.error("Fehler beim Abrufen des Benutzers:", err));  
