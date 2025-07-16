@@ -4,7 +4,6 @@
   <option>Unsorted</option>
   <option>Sort by price</option>
   <option>Sort by rating</option>
-  <option>Sort by name</option>
 </select>
 <input id="searchInput" type="text">
 <button  (click)="search()">Search</button>
@@ -25,6 +24,6 @@
     </ul>
   }
 }
-</div>
-<button  (click)="showAll()">Show all</button>
-</body>
+<button #allButton (click)="showAll()">Show all</button>
+<button #lessButton (click)="showLess()">Show less</button>
+

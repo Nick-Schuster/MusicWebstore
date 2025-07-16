@@ -41,6 +41,14 @@ export class ArticleServices {
     return articles.json();
   }
 
+  async getAllArticlesSort(sort:string): Promise<any> {
+    const articles: any = await fetch(`http://localhost:8080/api/products?sort=${sort}`,{
+      method: 'GET',
+      headers: { "Content-Type": "application/json" },
+    });
+    return articles.json();
+  }
+
   async getArticleByName(name:string): Promise<any> {
     const articles: any = await fetch(`http://localhost:8080/api/products/search?name=${name}`,{
       method: 'GET',
@@ -66,11 +74,13 @@ export class ArticleServices {
     return articles.json();
   }
 
-  async putArticleById(id:string): Promise<any> {
+  async putArticleById(id:string ,object:object): Promise<any> {
     const articles: any = await fetch(`http://localhost:8080/api/products/${id}`,{
-      method: 'GET',
+      method: 'PUT',
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(object),
     });
     return articles.json();
   }
+
 }

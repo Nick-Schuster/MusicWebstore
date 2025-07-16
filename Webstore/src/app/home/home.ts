@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, ElementRef, inject, ViewChild} from '@angular/core';
 import {ArticleServices} from '../shared/article-services';
 import {NgOptimizedImage} from '@angular/common';
 import {Router} from '@angular/router';
@@ -15,6 +15,9 @@ export class Home {
 
   articleServices: ArticleServices;
   articles:  any;
+  showAllArticles: boolean =  false;
+  @ViewChild('allButton') allButton!: ElementRef<HTMLButtonElement>;
+  @ViewChild('lessButton') lessButton!: ElementRef<HTMLButtonElement>;
   constructor(private router: Router)
   {
     this.articleServices = inject(ArticleServices);
@@ -23,6 +26,7 @@ export class Home {
   async ngOnInit(){
     this.articles = await this.articleServices.getAllArticlesSize("10");
     this.articles = this.articles.content;
+    this.lessButton.nativeElement.style.display = 'none';
   }
 
   toProductView(id: number){
@@ -31,26 +35,50 @@ export class Home {
 
   async changeSort(){
     const sortInput: HTMLSelectElement | null = document.getElementById('sortInput') as HTMLSelectElement;
-    if(sortInput){
+    if(this.showAllArticles){
       switch(sortInput.value){
         case 'Sort by price':
-          this.articles = await this.articleServices.getAllArticlesSizeSort("10","price,asc");
+          this.articles = await this.articleServices.getAllArticlesSort("price,asc");
           this.articles = this.articles.content;
           break;
           case 'Sort by rating':
             this.articles = await this.articleServices.getAllArticles();
             break;
-            case 'Sort by name':
-              break;
                 default:
-                  this.articles = await this.articleServices.getAllArticlesSize("10");
+                  this.articles = await this.articleServices.getAllArticles();
                   break;
+      }
+    }
+    if(!this.showAllArticles){
+      switch(sortInput.value){
+        case 'Sort by price':
+          this.articles = await this.articleServices.getAllArticlesSizeSort("10","price,asc");
+          this.articles = this.articles.content;
+          break;
+        case 'Sort by rating':
+          this.articles = await this.articleServices.getAllArticles();
+          this.articles = this.articles.content;
+          break;
+        default:
+          this.articles = await this.articleServices.getAllArticlesSize("10");
+          this.articles = this.articles.content;
+          break;
       }
     }
   }
 
   async showAll():Promise<void> {
-    this.articles = await this.articleServices.getAllArticles();
+    this.showAllArticles = true;
+    await this.changeSort();
+    this.lessButton.nativeElement.style.display = '';
+    this.allButton.nativeElement.style.display = 'none';
+  }
+
+  async showLess(): Promise<void> {
+    this.showAllArticles = false;
+    await this.changeSort();
+    this.lessButton.nativeElement.style.display = 'none';
+    this.allButton.nativeElement.style.display = '';
   }
 
   //Sehr fragwürdiger selbst ausgedachter Suchalgorithmus
