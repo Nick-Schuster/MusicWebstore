@@ -9,6 +9,14 @@
     @if(article.inStock){
       <li>Available</li>
     }
+    <ul>
+      @for(review of article.reviews;track  $index; let idx = $index){
+        <li>
+          {{review.comment}}
+          {{review.rating}}
+        </li>
+      }
+    </ul>
   </ul>
 }
 <button  (click)="addToBasket()">Add to basket</button>

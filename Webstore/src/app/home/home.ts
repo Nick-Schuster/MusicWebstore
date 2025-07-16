@@ -2,6 +2,7 @@ import {Component, ElementRef, inject, ViewChild} from '@angular/core';
 import {ArticleServices} from '../shared/article-services';
 import {NgOptimizedImage} from '@angular/common';
 import {Router} from '@angular/router';
+import stringComparison from 'string-comparison';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,8 @@ export class Home {
   showAllArticles: boolean =  false;
   @ViewChild('allButton') allButton!: ElementRef<HTMLButtonElement>;
   @ViewChild('lessButton') lessButton!: ElementRef<HTMLButtonElement>;
+  @ViewChild('selectElement') selectElement!: ElementRef<HTMLSelectElement>;
+  @ViewChild('inputElement') inputElement!: ElementRef<HTMLInputElement>;
   constructor(private router: Router)
   {
     this.articleServices = inject(ArticleServices);
@@ -34,29 +37,30 @@ export class Home {
   }
 
   async changeSort(){
-    const sortInput: HTMLSelectElement | null = document.getElementById('sortInput') as HTMLSelectElement;
+    const sortInput  = this.selectElement.nativeElement;
     if(this.showAllArticles){
       switch(sortInput.value){
-        case 'Sort by price':
+        case 'Sort by price ascending':
           this.articles = await this.articleServices.getAllArticlesSort("price,asc");
           this.articles = this.articles.content;
           break;
-          case 'Sort by rating':
+        case 'Sort by price descending':
+          this.articles = await this.articleServices.getAllArticlesSort("price,desc");
+          this.articles = this.articles.content;
+          break;
+          default:
             this.articles = await this.articleServices.getAllArticles();
             break;
-                default:
-                  this.articles = await this.articleServices.getAllArticles();
-                  break;
       }
     }
     if(!this.showAllArticles){
       switch(sortInput.value){
-        case 'Sort by price':
+        case 'Sort by price ascending':
           this.articles = await this.articleServices.getAllArticlesSizeSort("10","price,asc");
           this.articles = this.articles.content;
           break;
-        case 'Sort by rating':
-          this.articles = await this.articleServices.getAllArticles();
+        case 'Sort by price descending':
+          this.articles = await this.articleServices.getAllArticlesSizeSort("10","price,desc");
           this.articles = this.articles.content;
           break;
         default:
@@ -81,31 +85,23 @@ export class Home {
     this.allButton.nativeElement.style.display = '';
   }
 
-  //Sehr fragwürdiger selbst ausgedachter Suchalgorithmus
+
   async search(){
-    const searchInputElement: HTMLInputElement | null = document.getElementById('searchInput') as HTMLInputElement;
-    const searchInput:string = searchInputElement.value;
-    if(searchInput.length == 0){
-      this.articles = await this.articleServices.getAllArticlesSize("10");
-      this.articles = this.articles.content;
+    const input:string = this.inputElement.nativeElement.value;
+    if(input  ==  ""){
+      await this.changeSort();
       return;
     }
-    let selectedArticles: any[] = [];
-    this.articles = await this.articleServices.getAllArticles();
-    for(const articel of this.articles){
-      let match: number  = 0;
-      const name:string = articel.name;
-      for(let i=0;i < name.length; i++){
-        if(searchInput.includes(name[i])){
-          match = match + 1;
-        }
-      }
-      match = match / searchInput.length;
-      console.log(match);
-      if(match > 0.7){
-        selectedArticles.push(articel);
+    const allArticles:any  = await this.articleServices.getAllArticles();
+    let match:number = 0;
+    const resut:any[] =[];
+    for(let article of allArticles){
+      const name:string = article.name;
+      match = stringComparison.jaroWinkler.similarity(input, name);
+      if(match  >  0.8){
+        resut.push(article);
       }
     }
-    this.articles = selectedArticles;
+    this.articles = resut;
   }
 }

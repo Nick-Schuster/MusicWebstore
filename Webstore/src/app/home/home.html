@@ -1,11 +1,11 @@
 <body>
 <div class="sort">
-<select id="sortInput" (change)="changeSort()">
+<select  #selectElement (change)="changeSort()">
   <option>Unsorted</option>
-  <option>Sort by price</option>
-  <option>Sort by rating</option>
+  <option>Sort by price ascending</option>
+  <option>Sort by price descending</option>
 </select>
-<input id="searchInput" type="text">
+<input #inputElement type="text">
 <button  (click)="search()">Search</button>
 </div>
 <div class="product-list">
