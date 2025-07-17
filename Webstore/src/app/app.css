@@ -1,0 +1,33 @@
+body {
+  --color1:#FAE7C9;
+  --color2:#E1C78F;
+  --color3:#B0926A;
+  --color4:#706233;
+
+  background-color: var(--color1);
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  padding-top: 60px;
+  padding-bottom: 160px;
+  overflow-x: hidden;
+  right: 0;
+  left: 0;
+  box-sizing: border-box;
+}
+
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+}

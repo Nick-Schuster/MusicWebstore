@@ -15,6 +15,37 @@ export class Basket {
     this.articleServices = inject(ArticleServices);
   }
   async ngOnInit() {
+    await this.loadBasket()
+  }
+
+  toProductView(id: number){
+    this.router.navigate(['/productview',id]);
+  }
+
+  clearBasket(){
+    for(const article of this.articles){
+      this.articleServices.putArticleById(article.id,{
+        id:article.id,
+        name:article.name,
+        description:article.description,
+        price:article.price,
+        inStock:false,
+        averageRating:article.averageRating,
+        images:article.images,
+        reviews:article.reviews,
+      })
+    }
+    localStorage.clear();
+    this.articles.splice(0, this.articles.length);
+  }
+
+  async removeFromBasket(id: number){
+    localStorage.removeItem(id.toString());
+    await this.loadBasket()
+  }
+
+  async loadBasket(){
+    this.articles.splice(0, this.articles.length);
     for(let i = 0; i < localStorage.length; i++){
       const key:string | null = localStorage.key(i);
 
@@ -26,14 +57,5 @@ export class Basket {
         }
       }
     }
-  }
-
-  toProductView(id: number){
-    this.router.navigate(['/productview',id]);
-  }
-
-  clearBasket(){
-    localStorage.clear();
-    this.articles.splice(0, this.articles.length);
   }
 }

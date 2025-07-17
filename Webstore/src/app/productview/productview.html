@@ -1,14 +1,34 @@
+<div class="page-wrapper">
+
 @if(article){
-  <ul>
-    <li>{{article.name}}</li>
-    @if(article.images !=  null){
-      <img src="{{article.images.at(0).imageUrl}}" alt="">
-    }
-    <li>{{article.description}}</li>
-    <li>{{article.price}}</li>
+  <div class="product-detail">
+  @if(article.images !=  null){
+    <img class="pictures" src="{{article.images.at(0).imageUrl}}" alt="">
+  }
+
+  <ul class="product-info">
+    <li class="product-name">{{article.name}}</li>
+    <li class="product-description">{{article.description}}</li>
+    <li class="product-price">{{article.price}}$</li>
     @if(article.inStock){
-      <li>Available</li>
+      <li class="product-stock">Available</li>
     }
+    @else {
+      <li class="product-stock">Not available</li>
+    }
+    <ul>
+      @for(review of article.reviews;track  $index; let idx = $index){
+        <li>
+          {{review.comment}}
+          {{review.rating}}
+        </li>
+      }
+    </ul>
   </ul>
+    <button  (click)="addToBasket()">Add to basket</button>
+  </div>
 }
-<button  (click)="addToBasket()">Add to basket</button>
+
+  </div>
+
+
