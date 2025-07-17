@@ -59,46 +59,48 @@ class TestDataLoader(
                 ProductRequestDTO("Boss RC-505", "Looper", BigDecimal("499.00")),
                 "https://www.ikebe-gakki.com/blog/wp-content/uploads/2021/08/rc-505mkII_m.jpg",
                 ProductReviewRequestDTO(5, "Ideal für Solo-Artists.")
-            )
-            Triple(
-                ProductRequestDTO("Ibanez RG550", "E-Gitarre", BigDecimal("999.00")),
-                "https://www.ibanez.com/common/product_artist_images/2022/RG550-RF_01.png",
-                ProductReviewRequestDTO(4, "Schnelles Halsprofil – perfekt für Shredding!")
             ),
-            Triple(
-                ProductRequestDTO("Electro-Voice RE20", "Mikrofon", BigDecimal("459.00")),
-                "https://th.bing.com/th/id/OIP.qfiDLkZTlNDbcvJ4piF6eAHaHa?pid=ImgDetMain",
-                ProductReviewRequestDTO(5, "Studioqualität für Podcast und Broadcasting.")
-            ),
-            Triple(
-                ProductRequestDTO("Line 6 Helix LT", "Multi-Effektgerät", BigDecimal("1199.00")),
-                "https://line6.com/data/6/0a020a3df36d5f8a63da2820e/image.jpg",
-                ProductReviewRequestDTO(5, "Unendliche Klangmöglichkeiten – ein Traum für Gitarristen.")
-            ),
-            Triple(
-                ProductRequestDTO("AKAI MPD218", "MIDI Pad Controller", BigDecimal("119.00")),
-                "https://www.akaipro.com/amfile/file/download/file/899/product/294/",
-                ProductReviewRequestDTO(4, "Kompakt und direkt – tolle Pads für den Preis.")
-            ),
-            Triple(
-                ProductRequestDTO("Behringer Xenyx Q802USB", "Audio Mixer", BigDecimal("99.00")),
-                "https://th.bing.com/th/id/OIP.KNgQm4uPte5Xf6oBdIWoVAHaHa?pid=ImgDetMain",
-                ProductReviewRequestDTO(4, "Einsteigerfreundlich mit USB-Interface.")
-            ),
-            Triple(
-                ProductRequestDTO("Zoom H5", "Tragbarer Recorder", BigDecimal("299.00")),
-                "https://th.bing.com/th/id/R.6b2257b218cd59765fa99634aa4ed88f?rik=UABW7CGyFi9jqA&pid=ImgRaw&r=0",
-                ProductReviewRequestDTO(5, "Klarer Klang und flexible Aufnahmeoptionen.")
-            ),
-            Triple(
-                ProductRequestDTO("Dunlop Cry Baby GCB95", "Wah-Pedal", BigDecimal("109.00")),
-                "https://images.ctfassets.net/bs8r7a3m520u/3H4aFKx4QX2xaFyvwYkO2Q/9cb4502f071e336dbe2a7db981edba66/GCB95.png",
-                ProductReviewRequestDTO(5, "Der Klassiker unter den Wah-Pedalen.")
-            ),
-            Triple(
-                ProductRequestDTO("Focusrite Scarlett 2i2", "Audio Interface", BigDecimal("179.00")),
-                "https://www.focusrite.com/-/media/focusrite/products/scarlett-2i2/scarlett-2i2-3rd-gen/scarlett2i2-3qtr.png",
-                ProductReviewRequestDTO(5, "Plug and play für Homestudios – super Qualität.")
+    Triple(
+        ProductRequestDTO("AKG K240 Studio", "Kopfhörer", BigDecimal("69.00")),
+        "https://www.akg.com/on/demandware.static/-/Sites-akg-master/default/dw61db5b88/images/AKG_K240_Studio_x2.jpg",
+        ProductReviewRequestDTO(4, "Klarer Sound und bequemes Design.")
+    ),
+    Triple(
+        ProductRequestDTO("Focusrite Scarlett 2i2", "Audio Interface", BigDecimal("169.00")),
+        "https://cdn.mos.cms.futurecdn.net/XVgzf7ARkZ5WvTcvEuvBcE.jpg",
+        ProductReviewRequestDTO(5, "Unverzichtbar fürs Home-Studio.")
+    ),
+    Triple(
+        ProductRequestDTO("M-Audio Keystation 49 MK3", "MIDI-Keyboard", BigDecimal("99.00")),
+        "https://m.media-amazon.com/images/I/71PiOUt7NlL._AC_SL1500_.jpg",
+        ProductReviewRequestDTO(4, "Einfach, funktional, günstig.")
+    ),
+    Triple(
+        ProductRequestDTO("Zildjian A Custom Crash 16\"", "Becken", BigDecimal("239.00")),
+        "https://media.guitarcenter.com/is/image/MMGS7/A-Custom-Crash-Cymbal-16-in/449938000000000-00-720x720.jpg",
+        ProductReviewRequestDTO(5, "Brillanter Klang!")
+    ),
+    Triple(
+        ProductRequestDTO("Line 6 Helix LT", "Multi-Effektgerät", BigDecimal("1099.00")),
+        "https://www.gak.co.uk/blog/wp-content/uploads/2020/06/line-6-helix-lt.jpg",
+        ProductReviewRequestDTO(5, "Soundvielfalt ohne Ende.")
+    ),
+    Triple(
+        ProductRequestDTO("Ibanez SR300E", "E-Bass", BigDecimal("429.00")),
+        "https://images.musicstore.de/images/1280/ibanez-sr300e-candy-apple-matte_1_GIT0052787-000.jpg",
+        ProductReviewRequestDTO(4, "Leicht, schnell und angenehm spielbar.")
+    ),
+    Triple(
+        ProductRequestDTO("Zoom H6", "Mobiler Recorder", BigDecimal("359.00")),
+        "https://zoomcorp.com/media/images/H6_img_main_201902_02.image.jpg",
+        ProductReviewRequestDTO(5, "Flexibel und zuverlässig.")
+    ),
+    Triple(
+        ProductRequestDTO("Behringer Xenyx Q802USB", "Mixer", BigDecimal("95.00")),
+        "https://www.behringer.com/product/_editorImageTypes/MEDIUM_JPG/Behringer%20XENYX%20Q802USB-M.jpg",
+        ProductReviewRequestDTO(4, "Viele Features für kleines Geld.")
+    )
+
         )
 
         val admin = userService.createUser(
