@@ -14,6 +14,9 @@
     @if(article.inStock){
       <li class="product-stock">Available</li>
     }
+    @else {
+      <li class="product-stock">Not available</li>
+    }
   </ul>
     </div>
   <button class="remove"  (click)="removeFromBasket(article.id)">Remove from basket</button>

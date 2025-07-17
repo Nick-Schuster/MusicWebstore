@@ -13,6 +13,9 @@
     @if(article.inStock){
       <li class="product-stock">Available</li>
     }
+    @else {
+      <li class="product-stock">Not available</li>
+    }
     <ul>
       @for(review of article.reviews;track  $index; let idx = $index){
         <li>
