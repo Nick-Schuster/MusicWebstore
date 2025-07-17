@@ -17,6 +17,7 @@ html, body {
   top: 0;
   padding: 7px;
   width: 100%;
+  left: 0;
   z-index: 999;
   background-color: var(--color4);
 }

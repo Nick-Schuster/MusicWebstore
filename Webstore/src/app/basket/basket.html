@@ -1,20 +1,25 @@
 <div class="page-wrapper">
 <body>
+<div class="products">
 @for(article  of articles;track  $index; let idx = $index){
+  <div class="product-card">
+  @if(article.images !=  null){
+    <img class="pictures" src="{{article.images.at(0).imageUrl}}" alt="">
+  }
+    <div class="product-info">
   <ul (click)="toProductView(article.id)">
-    <li>{{article.name}}</li>
-    @if(article.images !=  null){
-      <img src="{{article.images.at(0).imageUrl}}" alt="">
-    }
-    <li>{{article.description}}</li>
-    <li>{{article.price}}$</li>
+    <li class="product-name">{{article.name}}</li>
+    <li class="product-description">{{article.description}}</li>
+    <li class="product-price">{{article.price}}$</li>
     @if(article.inStock){
-      <li>Available</li>
+      <li class="product-stock">Available</li>
     }
   </ul>
-  <button  (click)="removeFromBasket(article.id)">Remove from basket</button>
+    </div>
+  <button class="remove"  (click)="removeFromBasket(article.id)">Remove from basket</button>
+  </div>
 }
-<button  (click)="clearBasket()">Buy everything</button>
-
+<button class="buy-everything"  (click)="clearBasket()">Buy everything</button>
+</div>
 </body>
 </div>
