@@ -62,42 +62,42 @@ class TestDataLoader(
             ),
     Triple(
         ProductRequestDTO("AKG K240 Studio", "Kopfhörer", BigDecimal("69.00")),
-        "https://www.akg.com/on/demandware.static/-/Sites-akg-master/default/dw61db5b88/images/AKG_K240_Studio_x2.jpg",
+        "https://tse4.mm.bing.net/th/id/OIP.ESBeTE4Wbh-0GlsipJn4dQHaKK?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
         ProductReviewRequestDTO(4, "Klarer Sound und bequemes Design.")
     ),
     Triple(
         ProductRequestDTO("Focusrite Scarlett 2i2", "Audio Interface", BigDecimal("169.00")),
-        "https://cdn.mos.cms.futurecdn.net/XVgzf7ARkZ5WvTcvEuvBcE.jpg",
+        "https://musictech.com/wp-content/uploads/2023/09/focusrite-scarlett-2i2-onbalck@2000x1500-1068x801.jpg",
         ProductReviewRequestDTO(5, "Unverzichtbar fürs Home-Studio.")
     ),
     Triple(
         ProductRequestDTO("M-Audio Keystation 49 MK3", "MIDI-Keyboard", BigDecimal("99.00")),
-        "https://m.media-amazon.com/images/I/71PiOUt7NlL._AC_SL1500_.jpg",
+        "https://moogaudio.com/cdn/shop/products/maudiokeystation49mk3.jpg?v=1622830586",
         ProductReviewRequestDTO(4, "Einfach, funktional, günstig.")
     ),
     Triple(
         ProductRequestDTO("Zildjian A Custom Crash 16\"", "Becken", BigDecimal("239.00")),
-        "https://media.guitarcenter.com/is/image/MMGS7/A-Custom-Crash-Cymbal-16-in/449938000000000-00-720x720.jpg",
+        "https://tse4.mm.bing.net/th/id/OIP.2NHOcLxrlIYlZkDE0DWvCAHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
         ProductReviewRequestDTO(5, "Brillanter Klang!")
     ),
     Triple(
         ProductRequestDTO("Line 6 Helix LT", "Multi-Effektgerät", BigDecimal("1099.00")),
-        "https://www.gak.co.uk/blog/wp-content/uploads/2020/06/line-6-helix-lt.jpg",
+        "https://m.media-amazon.com/images/I/6138Kfuw-2L._AC_SL1500_.jpg",
         ProductReviewRequestDTO(5, "Soundvielfalt ohne Ende.")
     ),
     Triple(
         ProductRequestDTO("Ibanez SR300E", "E-Bass", BigDecimal("429.00")),
-        "https://images.musicstore.de/images/1280/ibanez-sr300e-candy-apple-matte_1_GIT0052787-000.jpg",
+        "https://tse1.mm.bing.net/th/id/OIP.40Qr2Dd2oO0YOPq9e8Ov0AHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
         ProductReviewRequestDTO(4, "Leicht, schnell und angenehm spielbar.")
     ),
     Triple(
         ProductRequestDTO("Zoom H6", "Mobiler Recorder", BigDecimal("359.00")),
-        "https://zoomcorp.com/media/images/H6_img_main_201902_02.image.jpg",
+        "https://tse4.mm.bing.net/th/id/OIP.bvyzNGwGOwjoWg5VUFo5NgHaJb?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
         ProductReviewRequestDTO(5, "Flexibel und zuverlässig.")
     ),
     Triple(
         ProductRequestDTO("Behringer Xenyx Q802USB", "Mixer", BigDecimal("95.00")),
-        "https://www.behringer.com/product/_editorImageTypes/MEDIUM_JPG/Behringer%20XENYX%20Q802USB-M.jpg",
+        "https://www.scmusic.com.au/content/uploads/2017/08/p-29215-Q802USB-large.gif",
         ProductReviewRequestDTO(4, "Viele Features für kleines Geld.")
     )
 
