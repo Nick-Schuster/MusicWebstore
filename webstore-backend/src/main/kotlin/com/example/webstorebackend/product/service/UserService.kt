@@ -1,10 +1,10 @@
 package com.example.webstorebackend.product.service
 
+import com.example.webstorebackend.common.exception.NotFoundException
 import com.example.webstorebackend.product.dto.UserRequestDTO
 import com.example.webstorebackend.product.dto.UserResponseDTO
 import com.example.webstorebackend.product.mapper.UserMapper
 import com.example.webstorebackend.product.repository.UserRepository
-import com.example.webstorebackend.common.exception.NotFoundException
 import org.springframework.stereotype.Service
 
 @Service
@@ -33,15 +33,15 @@ class UserService(
         return UserMapper.toUserDto(saved)
     }
 
-    fun deleteUser(id: Long): Boolean {
+    fun deleteUser(id: Long) {
         if (!userRepository.existsById(id)) {
             throw NotFoundException("Cannot delete. User with id $id not found")
         }
         userRepository.deleteById(id)
-        return true
     }
 
     fun deleteAllUsers() {
         userRepository.deleteAll()
     }
 }
+

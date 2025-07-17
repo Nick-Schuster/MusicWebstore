@@ -1,13 +1,13 @@
 package com.example.webstorebackend.product.service
 
+import com.example.webstorebackend.common.exception.NotFoundException
 import com.example.webstorebackend.product.dto.ProductRequestDTO
 import com.example.webstorebackend.product.dto.ProductResponseDTO
 import com.example.webstorebackend.product.mapper.ProductMapper
 import com.example.webstorebackend.product.repository.ProductRepository
-import org.springframework.stereotype.Service
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import com.example.webstorebackend.common.exception.NotFoundException
+import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
@@ -18,7 +18,7 @@ class ProductService(
     fun getAllProducts(): List<ProductResponseDTO> =
         productRepository.findAll().map { ProductMapper.toProductDto(it) }
 
-    @Transactional
+    @Transactional(readOnly = true)
     fun getProductById(id: Long): ProductResponseDTO {
         val product = productRepository.findById(id)
             .orElseThrow { NotFoundException("Product with id $id not found") }
@@ -32,7 +32,7 @@ class ProductService(
         return ProductMapper.toProductDto(saved)
     }
 
-    fun updateProduct(id: Long, updated: ProductRequestDTO): ProductResponseDTO? {
+    fun updateProduct(id: Long, updated: ProductRequestDTO): ProductResponseDTO {
         val existing = productRepository.findById(id)
             .orElseThrow { NotFoundException("Product with id $id not found") }
 
@@ -47,36 +47,30 @@ class ProductService(
         return ProductMapper.toProductDto(saved)
     }
 
-    fun deleteProduct(id: Long): Boolean {
+    fun deleteProduct(id: Long) {
         if (!productRepository.existsById(id)) {
             throw NotFoundException("Cannot delete. Product with id $id not found")
         }
         productRepository.deleteById(id)
-        return true
     }
 
     fun deleteAllProducts() {
         productRepository.deleteAll()
     }
 
-
-    fun searchProductsUnpaged(name: String): List<ProductResponseDTO> {
-        return productRepository.searchByNameIgnoreCaseUnpaged(name)
+    fun searchProductsUnpaged(name: String): List<ProductResponseDTO> =
+        productRepository.searchByNameIgnoreCaseUnpaged(name)
             .map { ProductMapper.toProductDto(it) }
-    }
 
-    fun searchProductsPaged(name: String, pageable: Pageable): Page<ProductResponseDTO> {
-        return productRepository.searchByNameIgnoreCasePaged(name, pageable)
+    fun searchProductsPaged(name: String, pageable: Pageable): Page<ProductResponseDTO> =
+        productRepository.searchByNameIgnoreCasePaged(name, pageable)
             .map { ProductMapper.toProductDto(it) }
-    }
 
-    fun getAllProducts(pageable: Pageable): Page<ProductResponseDTO> {
-        return productRepository.findAll(pageable)
+    fun getAllProducts(pageable: Pageable): Page<ProductResponseDTO> =
+        productRepository.findAll(pageable)
             .map { ProductMapper.toProductDto(it) }
-    }
 
-    fun getAllProductsUnpaged(): List<ProductResponseDTO> {
-        return productRepository.findAll()
+    fun getAllProductsUnpaged(): List<ProductResponseDTO> =
+        productRepository.findAll()
             .map { ProductMapper.toProductDto(it) }
-    }
 }

@@ -32,5 +32,4 @@ data class Product(
     val reviews: List<ProductReview> = mutableListOf()
 
 
-
 )

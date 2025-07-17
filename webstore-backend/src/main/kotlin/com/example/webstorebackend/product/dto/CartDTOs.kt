@@ -1,21 +1,20 @@
 package com.example.webstorebackend.product.dto
 
-import java.math.BigDecimal
+//not in use for now
+data class AddToCartRequestDTO(
+    val productId: Long,
+    val quantity: Int
+)
 
 data class CartItemDTO(
+    val id: Long,
     val productId: Long,
     val quantity: Int
 )
 
-data class CartResponseDTO(
+data class CartDTO(
+    val id: Long,
     val userId: Long,
-    val items: List<CartItemDetailDTO>,
-    val totalPrice: BigDecimal
+    val items: List<CartItemDTO>
 )
 
-data class CartItemDetailDTO(
-    val productId: Long,
-    val name: String,
-    val price: BigDecimal,
-    val quantity: Int
-)

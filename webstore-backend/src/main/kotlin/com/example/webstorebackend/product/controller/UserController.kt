@@ -6,6 +6,11 @@ import com.example.webstorebackend.product.service.UserService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
+/**
+ * REST controller for user management:
+ * includes search, retrieval, and user creation.
+ */
+//not in use for now
 @RestController
 @RequestMapping("/api/users")
 class UserController(
@@ -29,8 +34,11 @@ class UserController(
         ResponseEntity.ok(userService.createUser(dto))
 
     @DeleteMapping("/{id}")
-    fun deleteUser(@PathVariable id: Long): ResponseEntity<Boolean> =
-        ResponseEntity.ok(userService.deleteUser(id))
+    fun deleteUser(@PathVariable id: Long): ResponseEntity<Void> {
+        userService.deleteUser(id)
+        return ResponseEntity.noContent().build()
+    }
+
 
     @DeleteMapping("/all")
     fun deleteAllUsers(): ResponseEntity<Void> {

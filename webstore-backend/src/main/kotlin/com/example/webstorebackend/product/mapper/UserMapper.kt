@@ -5,6 +5,7 @@ import com.example.webstorebackend.product.dto.UserResponseDTO
 import com.example.webstorebackend.product.dto.UserRequestDTO
 import com.example.webstorebackend.product.entity.User
 
+//not in use for now
 @Component
 object UserMapper {
 

@@ -13,7 +13,7 @@ class TestDataLoader(
     private val productImageService: ProductImageService,
     private val productReviewService: ProductReviewService,
     private val userService: UserService,
-    private val cartService: CartService // ⬅️ Neu hinzugefügt
+    private val cartService: CartService
 ) : ApplicationRunner {
 
     override fun run(args: ApplicationArguments) {
@@ -78,15 +78,15 @@ class TestDataLoader(
             productReviewService.addReview(saved.id, reviewDTO)
         }
 
-        // Beispiel: Julia bekommt automatisch zwei Produkte in den Warenkorb
+        // Julia bekommt automatisch zwei Produkte in den Warenkorb
         if (createdProducts.size >= 2) {
             cartService.addItemToCart(
                 julia.id,
-                CartItemDTO(productId = createdProducts[0].id, quantity = 1)
+                AddToCartRequestDTO(productId = createdProducts[0].id, quantity = 1)
             )
             cartService.addItemToCart(
                 julia.id,
-                CartItemDTO(productId = createdProducts[1].id, quantity = 2)
+                AddToCartRequestDTO(productId = createdProducts[1].id, quantity = 2)
             )
         }
 

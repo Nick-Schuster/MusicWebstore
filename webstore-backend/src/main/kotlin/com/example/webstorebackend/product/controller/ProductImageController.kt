@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.*
 import com.example.webstorebackend.product.dto.ProductImageResponseDTO
 import com.example.webstorebackend.product.service.ProductImageService
 
+/**
+ * REST controller for managing product images:
+ * list, add, and delete image entries by product.
+ */
 @RestController
 @RequestMapping("/api/products/{productId}/images")
 class ProductImageController(
@@ -30,11 +34,10 @@ class ProductImageController(
         @PathVariable productId: Long,
         @PathVariable imageId: Long
     ): ResponseEntity<Void> {
-        return if (productImageService.deleteImage(productId, imageId)) {
-            ResponseEntity.noContent().build()
-        } else {
-            ResponseEntity.notFound().build()
-        }
+        productImageService.deleteImage(productId, imageId)
+        return ResponseEntity.noContent().build()
     }
+
+
 }
 

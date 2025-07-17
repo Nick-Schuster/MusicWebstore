@@ -2,6 +2,7 @@ package com.example.webstorebackend.product.entity
 
 import jakarta.persistence.*
 
+//not in use for now
 @Entity
 @Table(name = "cart_items")
 data class CartItem(

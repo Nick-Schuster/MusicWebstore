@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class WebstoreBackendApplication
 
 fun main(args: Array<String>) {
-	runApplication<WebstoreBackendApplication>(*args)
+    runApplication<WebstoreBackendApplication>(*args)
 }

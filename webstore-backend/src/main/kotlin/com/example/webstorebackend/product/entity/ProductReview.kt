@@ -10,7 +10,7 @@ data class ProductReview(
     val id: Long = 0,
 
     @Column(nullable = false)
-    val rating: Int,  // z. B. 1–5
+    val rating: Int,
 
     val comment: String? = null,
 

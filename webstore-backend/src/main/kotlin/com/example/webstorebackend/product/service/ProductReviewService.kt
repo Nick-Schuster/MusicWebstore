@@ -1,7 +1,8 @@
 package com.example.webstorebackend.product.service
 
-import com.example.webstorebackend.product.dto.ProductReviewResponseDTO
+import com.example.webstorebackend.common.exception.NotFoundException
 import com.example.webstorebackend.product.dto.ProductReviewRequestDTO
+import com.example.webstorebackend.product.dto.ProductReviewResponseDTO
 import com.example.webstorebackend.product.entity.Product
 import com.example.webstorebackend.product.entity.ProductReview
 import com.example.webstorebackend.product.mapper.ProductReviewMapper
@@ -24,7 +25,7 @@ class ProductReviewService(
     @Transactional
     fun addReview(productId: Long, dto: ProductReviewRequestDTO): ProductReviewResponseDTO {
         val product = productRepository.findById(productId)
-            .orElseThrow { RuntimeException("Product not found") }
+            .orElseThrow { NotFoundException("Product with ID $productId not found.") }
 
         val review = ProductReview(
             rating = dto.rating,
@@ -40,8 +41,9 @@ class ProductReviewService(
 
     private fun updateAverageRating(product: Product) {
         val reviews = reviewRepository.findByProductId(product.id)
-        val average = reviews.map { it.rating }.average()
+        val average = if (reviews.isEmpty()) 0.0 else reviews.map { it.rating }.average()
         product.averageRating = average
         productRepository.save(product)
     }
 }
+

@@ -1,6 +1,7 @@
 package com.example.webstorebackend.product.dto
 
-data class UserResponseDTO (
+//not in use for now
+data class UserResponseDTO(
     val id: Long,
     val username: String,
     val name: String,

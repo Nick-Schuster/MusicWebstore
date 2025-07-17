@@ -11,6 +11,11 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
 import jakarta.validation.Valid
 
+/**
+ * REST controller for product APIs:
+ * supports paging, CRUD operations, and DTO-based communication.
+ */
+
 @RestController
 @RequestMapping("/api/products")
 class ProductController(

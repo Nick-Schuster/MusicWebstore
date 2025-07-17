@@ -1,11 +1,16 @@
 package com.example.webstorebackend.product.controller
 
-import com.example.webstorebackend.product.dto.CartItemDTO
-import com.example.webstorebackend.product.dto.CartResponseDTO
+import com.example.webstorebackend.product.dto.AddToCartRequestDTO
+import com.example.webstorebackend.product.dto.CartDTO
 import com.example.webstorebackend.product.service.CartService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
+/**
+ * REST controller for cart operations:
+ * add, view, and remove products from a user's cart.
+ */
+//not in use for now
 @RestController
 @RequestMapping("/api/cart")
 class CartController(
@@ -13,7 +18,7 @@ class CartController(
 ) {
 
     @GetMapping("/{userId}")
-    fun getCart(@PathVariable userId: Long): ResponseEntity<CartResponseDTO> {
+    fun getCart(@PathVariable userId: Long): ResponseEntity<CartDTO> {
         val cart = cartService.getCart(userId)
         return ResponseEntity.ok(cart)
     }
@@ -21,7 +26,7 @@ class CartController(
     @PostMapping("/{userId}")
     fun addItemToCart(
         @PathVariable userId: Long,
-        @RequestBody dto: CartItemDTO
+        @RequestBody dto: AddToCartRequestDTO
     ): ResponseEntity<Void> {
         cartService.addItemToCart(userId, dto)
         return ResponseEntity.ok().build()
@@ -42,3 +47,4 @@ class CartController(
         return ResponseEntity.ok(confirmation)
     }
 }
+

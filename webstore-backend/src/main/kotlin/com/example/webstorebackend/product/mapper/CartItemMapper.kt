@@ -1,16 +1,17 @@
 package com.example.webstorebackend.product.mapper
 
+import com.example.webstorebackend.product.dto.AddToCartRequestDTO
 import com.example.webstorebackend.product.dto.CartItemDTO
-import com.example.webstorebackend.product.dto.CartItemDetailDTO
 import com.example.webstorebackend.product.entity.Cart
 import com.example.webstorebackend.product.entity.CartItem
 import com.example.webstorebackend.product.entity.Product
 import org.springframework.stereotype.Component
 
+//not in use for now
 @Component
 object CartItemMapper {
 
-    fun toEntity(dto: CartItemDTO, cart: Cart, product: Product): CartItem {
+    fun toEntity(dto: AddToCartRequestDTO, cart: Cart, product: Product): CartItem {
         return CartItem(
             cart = cart,
             product = product,
@@ -18,12 +19,11 @@ object CartItemMapper {
         )
     }
 
-    fun toDetailDTO(cartItem: CartItem): CartItemDetailDTO {
-        return CartItemDetailDTO(
-            productId = cartItem.product.id,
-            name = cartItem.product.name,
-            price = cartItem.product.price,
-            quantity = cartItem.quantity
+    fun toDTO(entity: CartItem): CartItemDTO {
+        return CartItemDTO(
+            id = entity.id,
+            productId = entity.product.id,
+            quantity = entity.quantity
         )
     }
 }

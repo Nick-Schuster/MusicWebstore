@@ -10,11 +10,12 @@ import org.springframework.stereotype.Component
 object ProductImageMapper {
 
     // Image Mappings
-    fun toImageEntity(dto: ProductImageRequestDTO, product: Product): com.example.webstorebackend.product.entity.ProductImage =
+    fun toImageEntity(dto: ProductImageRequestDTO, product: Product): ProductImage =
         ProductImage(
             imageUrl = dto.imageUrl,
             product = product
         )
+
 
     fun toImageDTO(image: ProductImage): ProductImageResponseDTO =
         ProductImageResponseDTO(

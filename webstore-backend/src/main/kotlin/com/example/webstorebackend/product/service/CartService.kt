@@ -1,14 +1,13 @@
 package com.example.webstorebackend.product.service
 
 import com.example.webstorebackend.common.exception.NotFoundException
-import com.example.webstorebackend.product.dto.CartItemDTO
-import com.example.webstorebackend.product.dto.CartResponseDTO
+import com.example.webstorebackend.product.dto.AddToCartRequestDTO
+import com.example.webstorebackend.product.dto.CartDTO
 import com.example.webstorebackend.product.mapper.CartItemMapper
 import com.example.webstorebackend.product.repository.*
 import com.example.webstorebackend.product.entity.*
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.math.BigDecimal
 
 @Service
 class CartService(
@@ -18,46 +17,34 @@ class CartService(
     private val cartItemRepository: CartItemRepository
 ) {
 
-    @Transactional
+    @Transactional(readOnly = true)
     fun getOrCreateCart(userId: Long): Cart {
         val user = userRepository.findById(userId)
-            .orElseThrow { NotFoundException("User with id $userId not found") }
+            .orElseThrow { NotFoundException("User with ID $userId not found.") }
 
         return cartRepository.findByUserId(userId) ?: cartRepository.save(Cart(user = user))
     }
 
-    @Transactional
-    fun getCart(userId: Long): CartResponseDTO {
+    @Transactional(readOnly = true)
+    fun getCart(userId: Long): CartDTO {
         val cart = getOrCreateCart(userId)
-
-        val itemDTOs = cart.items.map { CartItemMapper.toDetailDTO(it) }
-        val totalPrice = itemDTOs.fold(BigDecimal.ZERO) { acc, item ->
-            acc + (item.price * item.quantity.toBigDecimal())
-        }
-
-        return CartResponseDTO(
-            userId = userId,
-            items = itemDTOs,
-            totalPrice = totalPrice
-        )
+        val items = cart.items.map { CartItemMapper.toDTO(it) }
+        return CartDTO(id = cart.id, userId = cart.user.id, items = items)
     }
 
     @Transactional
-    fun addItemToCart(userId: Long, dto: CartItemDTO) {
+    fun addItemToCart(userId: Long, request: AddToCartRequestDTO) {
         val cart = getOrCreateCart(userId)
-        val product = productRepository.findById(dto.productId)
-            .orElseThrow { NotFoundException("Product with id ${dto.productId} not found") }
+        val product = productRepository.findById(request.productId)
+            .orElseThrow { NotFoundException("Product with ID ${request.productId} not found.") }
 
-        val existingItem = cart.items.find { it.product.id == dto.productId }
-
+        val existingItem = cart.items.find { it.product.id == product.id }
         if (existingItem != null) {
-            existingItem.quantity += dto.quantity
+            existingItem.quantity += request.quantity
         } else {
-            val newItem = CartItemMapper.toEntity(dto, cart, product)
+            val newItem = CartItemMapper.toEntity(request, cart, product)
             cart.items.add(newItem)
         }
-
-        // Save wird durch Cascade automatisch übernommen, aber falls nötig:
         cartRepository.save(cart)
     }
 
@@ -65,8 +52,7 @@ class CartService(
     fun removeItemFromCart(userId: Long, productId: Long) {
         val cart = getOrCreateCart(userId)
         val item = cart.items.find { it.product.id == productId }
-            ?: throw NotFoundException("Item with product id $productId not found in cart")
-
+            ?: throw NotFoundException("No cart item with product ID $productId found for user $userId.")
         cart.items.remove(item)
         cartItemRepository.delete(item)
     }
@@ -81,14 +67,12 @@ class CartService(
     @Transactional
     fun checkout(userId: Long): String {
         val cart = getOrCreateCart(userId)
-
         if (cart.items.isEmpty()) {
-            throw IllegalStateException("Cart is empty")
+            throw IllegalStateException("Cannot checkout an empty cart.")
         }
-
-        // Simulierter Checkout
         clearCart(userId)
-
-        return "Checkout erfolgreich für User $userId"
+        return "Checkout completed for user ID $userId"
     }
 }
+
+
